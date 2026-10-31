@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chaeril Marwan | Portofolio</title>
+  <meta name="description" content="Portofolio pribadi Chaeril Marwan - Web Developer & Desainer">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* =====================================================
+       TEMA FLEKSIBEL
+       Cukup ubah angka --hue (0 - 360) untuk mengganti
+       seluruh warna website secara otomatis.
+         10  = koral / hangat      160 = hijau mint
+         35  = oranye lembut       210 = biru langit
+         90  = hijau zaitun        250 = ungu lembut (default)
+                                   330 = pink
+       ===================================================== */
+    :root {
+      --hue: 250;
+
+      --accent:      hsl(var(--hue) 65% 58%);
+      --accent-soft: hsl(var(--hue) 80% 95%);
+      --accent-line: hsl(var(--hue) 40% 88%);
+
+      --bg:      hsl(var(--hue) 30% 98%);
+      --surface: hsl(0 0% 100% / .75);
+      --text:    hsl(var(--hue) 20% 14%);
+      --muted:   hsl(var(--hue) 8% 46%);
+      --border:  hsl(var(--hue) 20% 90%);
+
+      --radius: 20px;
+      --shadow: 0 1px 2px hsl(var(--hue) 30% 20% / .04),
+                0 12px 32px hsl(var(--hue) 30% 30% / .07);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --accent:      hsl(var(--hue) 75% 72%);
+        --accent-soft: hsl(var(--hue) 30% 18%);
+        --accent-line: hsl(var(--hue) 20% 26%);
+
+        --bg:      hsl(var(--hue) 18% 9%);
+        --surface: hsl(var(--hue) 16% 13% / .75);
+        --text:    hsl(var(--hue) 20% 94%);
+        --muted:   hsl(var(--hue) 8% 62%);
+        --border:  hsl(var(--hue) 14% 20%);
+
+        --shadow: 0 1px 2px #0004, 0 12px 32px #0005;
+      }
+    }
+
+    /* ===== Reset ===== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* Bercak warna lembut di latar belakang */
+    body::before, body::after {
+      content: "";
+      position: fixed;
+      z-index: -1;
+      width: 520px;
+      height: 520px;
+      border-radius: 50%;
+      filter: blur(110px);
+      opacity: .35;
+      pointer-events: none;
+    }
+    body::before { top: -140px; right: -120px; background: hsl(var(--hue) 90% 80%); }
+    body::after  { bottom: -160px; left: -140px; background: hsl(calc(var(--hue) + 50) 90% 82%); }
+
+    @media (prefers-color-scheme: dark) {
+      body::before, body::after { opacity: .18; }
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    .container { width: min(1040px, 100% - 40px); margin-inline: auto; }
+
+    /* ===== Navbar ===== */
+    .navbar {
+      position: sticky;
+      top: 14px;
+      z-index: 10;
+      margin: 14px auto 0;
+      width: min(1040px, 100% - 40px);
+      padding: 10px 14px 10px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--surface);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      box-shadow: var(--shadow);
+    }
+
+    .logo { font-weight: 700; font-size: 1.1rem; letter-spacing: -.02em; }
+    .logo span { color: var(--accent); }
+
+    .nav-links { display: flex; align-items: center; gap: 6px; }
+    .nav-links a {
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: .92rem;
+      font-weight: 500;
+      color: var(--muted);
+      transition: background .2s, color .2s;
+    }
+    .nav-links a:hover { background: var(--accent-soft); color: var(--accent); }
+    .nav-links .nav-cta { background: var(--text); color: var(--bg); }
+    .nav-links .nav-cta:hover { background: var(--accent); color: #fff; }
+
+    /* ===== Tombol ===== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 28px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: .95rem;
+      color: #fff;
+      background: var(--accent);
+      transition: transform .2s, box-shadow .2s, background .2s;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px hsl(var(--hue) 70% 55% / .35); }
+
+    .btn-ghost {
+      color: var(--text);
+      background: transparent;
+      border: 1px solid var(--border);
+    }
+    .btn-ghost:hover { background: var(--accent-soft); border-color: var(--accent-line); box-shadow: none; }
+
+    /* ===== Hero ===== */
+    .hero { padding: 110px 0 90px; }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      align-items: center;
+      gap: 50px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      margin-bottom: 24px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      border: 1px solid var(--accent-line);
+      color: var(--accent);
+      font-size: .85rem;
+      font-weight: 500;
+    }
+    .badge::before {
+      content: "";
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.6rem, 6.5vw, 4.6rem);
+      line-height: 1.08;
+      font-weight: 700;
+      letter-spacing: -.035em;
+      margin-bottom: 22px;
+    }
+
+    .hero h1 .soft {
+      font-weight: 300;
+      color: var(--accent);
+    }
+
+    .hero p {
+      color: var(--muted);
+      max-width: 480px;
+      margin-bottom: 36px;
+      font-size: 1.05rem;
+    }
+
+    .hero-buttons { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    .hero-avatar { display: flex; justify-content: center; }
+
+    .avatar {
+      width: 280px;
+      height: 280px;
+      border-radius: 42% 58% 55% 45% / 48% 45% 55% 52%;
+      display: grid;
+      place-items: center;
+      font-size: 4rem;
+      font-weight: 300;
+      letter-spacing: -.02em;
+      color: var(--accent);
+      background: linear-gradient(145deg,
+                  hsl(var(--hue) 85% 90%),
+                  hsl(calc(var(--hue) + 40) 85% 88%));
+      border: 6px solid var(--bg);
+      box-shadow: 0 0 0 1px var(--accent-line), var(--shadow);
+      overflow: hidden;
+      position: relative;
+      animation: morph 12s ease-in-out infinite;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .avatar { background: linear-gradient(145deg, hsl(var(--hue) 30% 22%), hsl(calc(var(--hue) + 40) 30% 18%)); }
+    }
+
+    .avatar img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      /* Atur posisi potongan: "center center", "center top", "center 40%" */
+      object-position: center 20%;
+    }
+
+    /* Bentuk organik yang bergerak pelan */
+    @keyframes morph {
+      0%, 100% { border-radius: 42% 58% 55% 45% / 48% 45% 55% 52%; }
+      50%      { border-radius: 55% 45% 42% 58% / 52% 55% 45% 48%; }
+    }
+
+    /* ===== Section ===== */
+    .section { padding: 90px 0; }
+
+    .section-label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 700;
+      letter-spacing: -.03em;
+      line-height: 1.2;
+      margin-bottom: 40px;
+    }
+
+    /* ===== Tentang ===== */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 50px;
+      align-items: center;
+    }
+    .about-grid p { color: var(--muted); font-size: 1.05rem; }
+
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .stat {
+      text-align: center;
+      padding: 22px 8px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+    .stat strong {
+      display: block;
+      font-size: 1.8rem;
+      font-weight: 600;
+      letter-spacing: -.03em;
+      color: var(--accent);
+    }
+    .stat span { font-size: .78rem; color: var(--muted); }
+
+    /* ===== Keahlian ===== */
+    .skills { display: flex; flex-wrap: wrap; gap: 10px; }
+    .skill {
+      padding: 10px 22px;
+      border-radius: 999px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      font-size: .93rem;
+      font-weight: 500;
+      transition: all .2s;
+    }
+    .skill:hover {
+      background: var(--accent-soft);
+      border-color: var(--accent-line);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    /* ===== Proyek ===== */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 22px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: transform .3s, box-shadow .3s;
+    }
+    .card:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
+
+    .card-thumb {
+      height: 150px;
+      display: grid;
+      place-items: center;
+      font-size: 3rem;
+    }
+    /* Warna kartu mengikuti --hue, tiap kartu bergeser sedikit */
+    .t1 { background: hsl(calc(var(--hue) - 25) 80% 93%); }
+    .t2 { background: hsl(var(--hue) 80% 93%); }
+    .t3 { background: hsl(calc(var(--hue) + 30) 80% 93%); }
+
+    @media (prefers-color-scheme: dark) {
+      .t1 { background: hsl(calc(var(--hue) - 25) 28% 20%); }
+      .t2 { background: hsl(var(--hue) 28% 20%); }
+      .t3 { background: hsl(calc(var(--hue) + 30) 28% 20%); }
+    }
+
+    .card-body { padding: 24px; }
+    .card-body h3 { font-size: 1.15rem; font-weight: 600; letter-spacing: -.02em; margin-bottom: 6px; }
+    .card-body p { color: var(--muted); font-size: .93rem; margin-bottom: 16px; }
+
+    .tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 18px; }
+    .tags span {
+      padding: 3px 12px;
+      font-size: .75rem;
+      font-weight: 500;
+      border-radius: 999px;
+      color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    .card-link { font-size: .92rem; font-weight: 600; color: var(--accent); }
+    .card-link:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+    /* ===== Kontak ===== */
+    .contact-box {
+      text-align: center;
+      padding: 70px 30px;
+      border-radius: 32px;
+      background: var(--accent-soft);
+      border: 1px solid var(--accent-line);
+    }
+    .contact-box .section-title { margin-bottom: 14px; }
+    .contact-box p { color: var(--muted); max-width: 460px; margin: 0 auto 28px; }
+
+    .socials { display: flex; justify-content: center; gap: 8px; margin-top: 30px; flex-wrap: wrap; }
+    .socials a {
+      padding: 8px 18px;
+      border-radius: 999px;
+      font-size: .9rem;
+      font-weight: 500;
+      color: var(--muted);
+      transition: background .2s, color .2s;
+    }
+    .socials a:hover { background: var(--surface); color: var(--accent); }
+
+    /* ===== Footer ===== */
+    .footer {
+      padding: 30px 0 40px;
+      text-align: center;
+      font-size: .88rem;
+      color: var(--muted);
+    }
+
+    /* ===== Responsif ===== */
+    @media (max-width: 800px) {
+      .hero { padding: 70px 0 60px; }
+      .hero-inner, .about-grid { grid-template-columns: 1fr; gap: 36px; }
+      .hero-avatar { order: -1; }
+      .avatar { width: 200px; height: 200px; font-size: 3rem; }
+      .hero-text { text-align: center; }
+      .hero p { margin-inline: auto; }
+      .hero-buttons { justify-content: center; }
+      .nav-links a:not(.nav-cta) { display: none; }
+      .section { padding: 64px 0; }
+      .contact-box { padding: 50px 20px; }
+    }
+
+    /* Hormati pengguna yang mengurangi animasi */
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <a href="#home" class="logo">Chaeril<span>.</span></a>
+    <nav class="nav-links">
+      <a href="#tentang">Tentang</a>
+      <a href="#keahlian">Keahlian</a>
+      <a href="#proyek">Proyek</a>
+      <a href="#kontak" class="nav-cta">Kontak</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section id="home" class="hero">
+      <div class="container hero-inner">
+        <div class="hero-text">
+          <span class="badge">Tersedia untuk proyek baru</span>
+          <h1>Halo, saya<br>Chaeril Marwan<br><span class="soft">Web Developer.</span></h1>
+          <p>Saya membuat website yang bersih, cepat, dan nyaman digunakan. Senang mengubah ide sederhana menjadi produk digital yang berguna.</p>
+          <div class="hero-buttons">
+            <a href="#proyek" class="btn">Lihat Proyek</a>
+            <a href="#kontak" class="btn btn-ghost">Hubungi Saya</a>
+          </div>
+        </div>
+        <div class="hero-avatar">
+          <!-- Jika poto.jpg tidak ditemukan, yang tampil adalah inisial "CM" -->
+          <div class="avatar">CM
+            <img src="poto.jpg" alt="Chaeril Marwan" onerror="this.remove()">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TENTANG -->
+    <section id="tentang" class="section">
+      <div class="container">
+        <span class="section-label">Tentang</span>
+        <h2 class="section-title">Sedikit cerita tentang saya</h2>
+        <div class="about-grid">
+          <p>
+            Saya seorang pengembang web yang fokus pada tampilan modern dan pengalaman pengguna yang baik.
+            Saya suka belajar teknologi baru, menulis kode yang rapi, dan bekerja sama dalam tim.
+            Di luar pekerjaan, saya menikmati membaca, bermain game, dan menjelajahi tempat baru.
+          </p>
+          <div class="stats">
+            <div class="stat"><strong>2+</strong><span>Tahun Pengalaman</span></div>
+            <div class="stat"><strong>15+</strong><span>Proyek Selesai</span></div>
+            <div class="stat"><strong>10+</strong><span>Klien Puas</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- KEAHLIAN -->
+    <section id="keahlian" class="section">
+      <div class="container">
+        <span class="section-label">Keahlian</span>
+        <h2 class="section-title">Alat yang saya gunakan</h2>
+        <div class="skills">
+          <span class="skill">HTML</span>
+          <span class="skill">CSS</span>
+          <span class="skill">JavaScript</span>
+          <span class="skill">React</span>
+          <span class="skill">Git & GitHub</span>
+          <span class="skill">Responsive Design</span>
+          <span class="skill">UI/UX Dasar</span>
+          <span class="skill">Figma</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROYEK -->
+    <section id="proyek" class="section">
+      <div class="container">
+        <span class="section-label">Proyek</span>
+        <h2 class="section-title">Karya pilihan</h2>
+        <div class="cards">
+          <article class="card">
+            <div class="card-thumb t1">🛒</div>
+            <div class="card-body">
+              <h3>Toko Online</h3>
+              <p>Website toko online sederhana dengan katalog produk dan keranjang belanja.</p>
+              <div class="tags"><span>HTML</span><span>CSS</span><span>JS</span></div>
+              <a href="#" class="card-link">Lihat proyek →</a>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-thumb t2">📝</div>
+            <div class="card-body">
+              <h3>Aplikasi Catatan</h3>
+              <p>Aplikasi catatan harian yang ringan, mudah dipakai, dan tersimpan otomatis.</p>
+              <div class="tags"><span>React</span><span>CSS</span></div>
+              <a href="#" class="card-link">Lihat proyek →</a>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-thumb t3">🌤️</div>
+            <div class="card-body">
+              <h3>Dashboard Cuaca</h3>
+              <p>Menampilkan prakiraan cuaca real-time dengan tampilan yang bersih.</p>
+              <div class="tags"><span>API</span><span>JS</span></div>
+              <a href="#" class="card-link">Lihat proyek →</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- KONTAK -->
+    <section id="kontak" class="section">
+      <div class="container">
+        <div class="contact-box">
+          <span class="section-label">Kontak</span>
+          <h2 class="section-title">Mari bekerja sama</h2>
+          <p>Punya proyek atau sekadar ingin menyapa? Kirim pesan, saya akan membalas secepatnya.</p>
+          <a href="mailto:Chaeril@gmail.com" class="btn">Chaeril@gmail.com</a>
+          <div class="socials">
+            <a href="#">GitHub</a>
+            <a href="#">LinkedIn</a>
+            <a href="#">Instagram</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>© 2026 Chaeril Marwan. Dibuat dengan HTML & CSS.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
